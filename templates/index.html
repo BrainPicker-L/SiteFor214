@@ -1,0 +1,133 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - happyValentine (Happy Valentine&#39;s Day heart particle) - created by pure JavaScript and
+        canvas</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+
+<script src="{% static 'js/jquery-1.8.3.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/time.js' %}" type="text/javascript"></script>
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/GB-canvas-turntable.css' %}">
+<link rel="stylesheet" type="{% static 'css/hlhs.css' %}">
+
+
+<div id="contents">
+    <canvas id="canvas">This browser cannot use a canvas.</canvas>
+</div>
+
+<div style="position:absolute;left:10px;top:10px;">
+    <div class="words"> 我爱你！！徐美萌！！！</div>
+    <div class="days">
+        <span class="days-number">1921</span>
+        <span class="days-label">天</span>
+    </div>
+    <div class="seconds">15 hours 24 minutes 30 seconds</div>
+    {% if  user.is_authenticated %}
+	<div id="box">
+        <div id="content">
+            <div id="spread">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">登录</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {% for field in login_form %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            <p class="text-danger">{{ field.errors.as_text }}</p>
+                            {% endfor %}
+                            <span class="pull-left text-danger">{{ login_form.non_field_errors }}</span>
+                            <input type="submit" value="登录" class="btn btn-primary pull-right">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="btn">点击开启❤️的游戏</button>
+</div>
+    {% else %}
+    <div>
+        <p class="times"></p>
+    </div>
+    <div class="zhuanp">
+        <section id="turntable" class="gb-turntable">
+            <div class="gb-turntable-container">
+                <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
+            </div>
+
+            <a class="gb-turntable-btn" href="javascript:;">抽奖</a>
+        </section>
+    </div>
+
+    {% endif %}
+
+
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/jquery-1.8.3.min.js' %}" type="text/javascript"></script>
+<script>
+        var btn = $('#btn')
+    var spread = $('#spread')
+    btn.click(function () {
+        spread.slideToggle()
+    })
+</script>
+<script src="{% static 'js/GB-canvas-turntable.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var num = 3//Math.random() * 7 >>> 0, //奖品ID
+            gbTurntable.init({
+                id: 'turntable',
+                config: function (callback) {
+                    // 获取奖品信息
+                    callback && callback([{
+                        text: '5.2元红包',
+                    }, {
+                        text: '13.14元红包'
+                    },{
+                        text: '131.4元红包'
+                    }
+                    , {
+                        text: '1314元红包'
+                    }, {
+                        text: '52.0元红包',
+                    }, {
+                        text: '520元红包'
+                    }, {
+                        text: '5213.14元红包'
+                    }, {
+                        text: '谢谢惠顾'
+                    }
+                    ])
+                },
+                getPrize: function (callback) {
+                    // 获取中奖信息
+
+                    chances = num; // 可抽奖次数
+                    num = num - 1
+
+                    callback && callback([num, chances]);
+                },
+
+                gotBack: function (data) {
+                    alert('恭喜抽中' + data);
+                    $('.times').text("可抽奖次数" + chances + " 记得截图保存～");
+                }
+            });
+        }, false);
+
+    </script>
+</body>
+</html>

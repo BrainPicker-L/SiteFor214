@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>幸运大转盘</title>
+
+    <link rel="stylesheet" href="{% static 'css/GB-canvas-turntable.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hlhs.css' %}">
+</head>
+
+<body>
+    <img class="bg" src="bg.png" alt="">
+    <div class="zhuanp">
+        <section id="turntable" class="gb-turntable">
+            <div class="gb-turntable-container">
+                <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
+            </div>
+
+            <a class="gb-turntable-btn" href="javascript:;">抽奖</a>
+        </section>
+    </div>
+    <script src="{% static 'js/GB-canvas-turntable.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            gbTurntable.init({
+                id: 'turntable',
+                config: function (callback) {
+                    // 获取奖品信息
+                    // callback && callback(['11元红包','2元红包','3元红包','4元红包','5元红包','6元红包']);
+                    callback && callback([{
+                        text: '1元红包',
+                    }, {
+                        text: '2元红包'
+                    },{
+                        text: '100元红包'
+                    }
+                    , {
+                        text: '3元红包'
+                    }, {
+                        text: '显示器',   
+                    }, {
+                        text: '5元红包'
+                    }, {
+                        text: '6元红包'
+                    }, {
+                        text: '笔记本电脑'
+                    }
+                    ])
+                },
+                getPrize: function (callback) {
+                    // 获取中奖信息
+                    var num = Math.random() * 7 >>> 0, //奖品ID
+                        chances = num; // 可抽奖次数
+                    callback && callback([num, chances]);
+                },
+                gotBack: function (data) {
+                    alert('恭喜抽中' + data);
+                }
+            });
+        }, false);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    margin:0;
+    padding:0;
+}
+.bg{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+.zhuanp{
+    position: fixed;
+    width: 100%;
+    top: 35vh;
+    left: 0;
+    z-index: 100;
+}
+#turntable{
+    margin: 0 auto;
+}
